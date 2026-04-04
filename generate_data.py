@@ -156,14 +156,32 @@ def grp_assgn():
     return result
 
 
+
+# generating classes
+def gen_clss(grps, profs):
+    classes = []
+    for i, g in enumerate(grps):
+        class_i = {
+            "class_id": f"CLASS-{i+1:03d}",
+            "name": f"CLS_{g['group_id']}",
+            "professor_id": random.choice(profs)["prof_id"],
+            "group_id": g["group_id"],
+            "enrolled": g["size"]
+        }
+        classes.append(class_i)
+    return classes
+
+
+
 # To save these generated data to a json file called "constraints.json"
-def save_json(stds, grps, profs, rooms):
+def save_json(stds, grps, profs, rooms, clss):
 
     data = {
         "students": stds,
         "groups": grps,
         "professors": profs,
-        "rooms": rooms
+        "rooms": rooms,
+        "classes": clss
     }
 
     with open("data/constraints.json", "w") as f:
@@ -178,7 +196,8 @@ if __name__ == "__main__":
     grps = grp_assgn()
     profs = gen_prfs()
     rooms = gen_rooms()
-    save_json(stds, grps, profs, rooms)
+    clss = gen_clss(grps, profs)
+    save_json(stds, grps, profs, rooms, clss)
 
 
 
