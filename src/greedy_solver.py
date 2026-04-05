@@ -66,8 +66,7 @@ def greedy_solver(data):
         if not placed:
             unscheduled.append(c)
 
-    print(f"Scheduled: {len(scheduled)}")
-    print(f"Unscheduled: {len(unscheduled)}")   
+    print(scheduled, unscheduled)
     return scheduled, unscheduled
 
 

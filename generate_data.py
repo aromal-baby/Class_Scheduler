@@ -161,10 +161,11 @@ def grp_assgn():
 def gen_clss(grps, profs):
     classes = []
     for i, g in enumerate(grps):
+        small_pool = random.sample(profs, 50)
         class_i = {
             "class_id": f"CLASS-{i+1:03d}",
             "name": f"CLS_{g['group_id']}",
-            "professor_id": random.choice(profs)["prof_id"],
+            "professor_id": random.choice(small_pool)["prof_id"],
             "group_id": g["group_id"],
             "enrolled": g["size"]
         }
