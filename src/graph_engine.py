@@ -3,7 +3,6 @@ from collections import Counter
 
 def conflict_graph(classes):
 
-
     graph = {}
 
     for c in classes:
@@ -21,19 +20,39 @@ def conflict_graph(classes):
                 graph[a["class_id"]].append(b["class_id"])
                 graph[b["class_id"]].append(a["class_id"])
 
-    edges = sum(len(v) for v in graph.values()) // 2
-    print(f"Total edges: {edges}")
-    prof_counts = Counter(cls["professor_id"] for cls in classes)
-    duplicates = {p: c for p, c in prof_counts.items() if c > 1}
-    print(f"Professors teaching multiple classes: {len(duplicates)}")
-    print(duplicates)
+    # edges = sum(len(v) for v in graph.values()) // 2
+    # print(f"Total edges: {edges}")
+    # prof_counts = Counter(cls["professor_id"] for cls in classes)
+    # duplicates = {p: c for p, c in prof_counts.items() if c > 1}
+    # print(f"Professors teaching multiple classes: {len(duplicates)}")
+    # print(duplicates)
 
 
     return graph
 
 def welsh_powell(graph, time_slots):
 
-    pass
+    nodes = sorted(graph.keys(), key=lambda n: len(graph[n]), reverse=True)
+
+    assgnmnt = {}
+
+    for n in nodes:
+        # Finding slots used by   already assigned neighbours
+        ngbr_slots = []
+        for nb in graph[n]:
+            if nb in assgnmnt:
+                ngbr_slots.append(assgnmnt[nb])
+
+        # To pick the first slot that is not in the neighbour slots
+        for s in time_slots:
+            if s not in ngbr_slots:
+                assgnmnt[n] = s
+                break
+
+    print(assgnmnt)
+    print(f"Assigned: {len(assgnmnt)}")
+    print(f"Missing: {[c['class_id'] for c in classes if c['class_id'] not in assgnmnt]}")
+    return assgnmnt
 
 
 def load_data():
