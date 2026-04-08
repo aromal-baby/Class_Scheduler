@@ -3,9 +3,9 @@ import json
 # To load the generated json data constraints
 def load_data():
 
-    with open("../data/constraints.json") as f:
+    with open("data/constraints.json") as f:
         return json.load(f)
-    
+
 
 
 # ACtuall algorithm application

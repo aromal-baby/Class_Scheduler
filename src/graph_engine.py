@@ -49,15 +49,22 @@ def welsh_powell(graph, time_slots):
                 assgnmnt[n] = s
                 break
 
-    print(assgnmnt)
-    print(f"Assigned: {len(assgnmnt)}")
-    print(f"Missing: {[c['class_id'] for c in classes if c['class_id'] not in assgnmnt]}")
+    # print(assgnmnt)
+    # print(f"Assigned: {len(assgnmnt)}")
+    # print(f"Missing: {[c['class_id'] for c in classes if c['class_id'] not in assgnmnt]}")
     return assgnmnt
 
 
 def load_data():
     with open("../data/constraints.json") as f:
         return json.load(f)
+    
+
+def print_graph(graph):
+    print("\nConflict Graph:")
+    for class_id, neighbours in graph.items():
+        if neighbours:
+            print(f"  {class_id} → {', '.join(neighbours)}")
 
 
 
